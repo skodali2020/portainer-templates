@@ -1,0 +1,23 @@
+{
+  "title": "DGX Spark Heavy",
+  "description": "Launch a high-performance Spark container with multi-GPU access and expanded resources.",
+  "logo": "https://yourdomain.com/images/dgx-spark-heavy.png",
+  "platform": "linux",
+  "type": "stack",
+  "categories": ["AI", "GPU", "Spark", "High Performance"],
+  "env": [
+    {
+      "name": "USER_ID",
+      "label": "User ID",
+      "description": "Unique identifier for workspace isolation",
+      "default": "siva"
+    },
+    {
+      "name": "GPU_DEVICES",
+      "label": "GPU Devices",
+      "description": "Comma-separated GPU IDs (e.g., 0,1,2)",
+      "default": "0,1"
+    }
+  ],
+  "stackFileContent": "version: '3.8'\nservices:\n  dgx-spark-heavy:\n    image: yourregistry/dgx-spark-template:latest\n    environment:\n      - NVIDIA_VISIBLE_DEVICES=${GPU_DEVICES}\n      - USER_ID=${USER_ID}\n    volumes:\n      - /data/${USER_ID}:/workspace\n    deploy:\n      resources:\n        limits:\n          cpus: '8.0'\n          memory: 64G\n    ports:\n      - \"8888:8888\"\n    restart: unless-stopped"
+}
