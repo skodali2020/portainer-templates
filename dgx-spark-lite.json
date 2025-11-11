@@ -1,4 +1,4 @@
-{
+[{
   "title": "DGX Spark Lite",
   "description": "Launch a GPU-enabled container for Spark workloads with dynamic GPU scaling.",
   "logo": "https://yourdomain.com/images/dgx-spark-logo.png",
@@ -20,4 +20,4 @@
     }
   ],
   "stackFileContent": "version: '3.8'\nservices:\n  dgx-spark-user:\n    image: yourregistry/dgx-spark-template:latest\n    environment:\n      - NVIDIA_VISIBLE_DEVICES=${GPU_DEVICES}\n      - USER_ID=${USER_ID}\n    volumes:\n      - /data/${USER_ID}:/workspace\n    deploy:\n      resources:\n        limits:\n          cpus: '2.0'\n          memory: 8G\n    ports:\n      - \"8888:8888\"\n    restart: unless-stopped"
-}
+}]
