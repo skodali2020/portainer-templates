@@ -1,0 +1,23 @@
+{
+  "title": "DGX Spark Lite",
+  "description": "Launch a GPU-enabled container for Spark workloads with dynamic GPU scaling.",
+  "logo": "https://yourdomain.com/images/dgx-spark-logo.png",
+  "platform": "linux",
+  "type": "stack",
+  "categories": ["AI", "GPU", "Spark"],
+  "env": [
+    {
+      "name": "USER_ID",
+      "label": "User ID",
+      "description": "Unique identifier for workspace isolation",
+      "default": "siva"
+    },
+    {
+      "name": "GPU_DEVICES",
+      "label": "GPU Devices",
+      "description": "Comma-separated GPU IDs (e.g., 0 or 0,1)",
+      "default": "0"
+    }
+  ],
+  "stackFileContent": "version: '3.8'\nservices:\n  dgx-spark-user:\n    image: yourregistry/dgx-spark-template:latest\n    environment:\n      - NVIDIA_VISIBLE_DEVICES=${GPU_DEVICES}\n      - USER_ID=${USER_ID}\n    volumes:\n      - /data/${USER_ID}:/workspace\n    deploy:\n      resources:\n        limits:\n          cpus: '2.0'\n          memory: 8G\n    ports:\n      - \"8888:8888\"\n    restart: unless-stopped"
+}
